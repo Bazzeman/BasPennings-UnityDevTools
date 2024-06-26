@@ -1,5 +1,9 @@
 using UnityEditor;
 
+/// <summary>
+/// CreateScriptTemplate script adds custom menu items to the Unity Editor for creating new script files from templates.
+/// It allows users to create MonoBehaviour, Enum, and Singleton script files from pre-defined templates located in the Assets/Editor/Templates folder.
+/// </summary>
 public static class CreateScriptTemplate
 {
     [MenuItem("Assets/Create/Code/MonoBehaviour", priority = 40)]
