@@ -1,0 +1,17 @@
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+/// <summary>
+/// #NAME#
+/// </summary>
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    void Start()
+    {
+        #NOTRIM#
+    }
+
+    // Update() - A continueos loop for running visual based code. - Uses Time.deltaTime.
+    // FixedUpdate() - A continueos loop for running physics based code. - Uses Time.fixedDeltatime
+}
+#ROOTNAMESPACEEND#

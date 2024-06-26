@@ -1,0 +1,14 @@
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+/// <summary>
+/// #NAME#
+/// </summary>
+public class #SCRIPTNAME# : Singleton<#SCRIPTNAME#>
+{
+    // Access the instance of this class by using #SCRIPTNAME#.Instance.
+
+    // Make sure to call base.Awake() when overriding Awake method.
+    // protected override void Awake() => base.Awake();
+}
+#ROOTNAMESPACEEND#
