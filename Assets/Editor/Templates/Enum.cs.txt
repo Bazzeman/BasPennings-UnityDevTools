@@ -1,7 +1,4 @@
-using UnityEngine;
-
-    #ROOTNAMESPACEBEGIN#
-/// <summary>
+#ROOTNAMESPACEBEGIN#/// <summary>
 /// #NAME#
 /// </summary>
 public enum #SCRIPTNAME#
