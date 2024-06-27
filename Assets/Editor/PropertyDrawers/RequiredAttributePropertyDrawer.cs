@@ -4,7 +4,7 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(RequiredAttribute))]
 public class RequiredAttributePropertyDrawer : PropertyDrawer
 {
-    readonly Color k_errorColor = new Color(1, .2f, .2f, .1f);
+    readonly Color errorColor = new Color(1, .2f, .2f, .1f);
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
@@ -31,8 +31,8 @@ public class RequiredAttributePropertyDrawer : PropertyDrawer
             position.height = EditorGUIUtility.singleLineHeight * 2;
             position.height += base.GetPropertyHeight(property, label);
 
-            EditorGUI.HelpBox(position, "Required", MessageType.Error);
-            EditorGUI.DrawRect(position, k_errorColor);
+            EditorGUI.HelpBox(position, "Required", UnityEditor.MessageType.Error);
+            EditorGUI.DrawRect(position, errorColor);
 
             position.height = base.GetPropertyHeight(property, label);
             position.y = EditorGUIUtility.singleLineHeight * 2;
