@@ -14,6 +14,14 @@ public static class CreateScriptTemplate
         ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewScript.cs");
     }
 
+    [MenuItem("Assets/Create/Code/Singleton", priority = 41)]
+    public static void CreateSingletonMenuItem()
+    {
+        const string templatePath = "Assets/Editor/Templates/Singleton.cs.txt";
+
+        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewSingleton.cs");
+    }
+
     [MenuItem("Assets/Create/Code/Enum", priority = 41)]
     public static void CreateEnumMenuItem()
     {
@@ -22,11 +30,11 @@ public static class CreateScriptTemplate
         ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewEnum.cs");
     }
 
-    [MenuItem("Assets/Create/Code/Singleton", priority = 41)]
-    public static void CreateSingletonMenuItem()
+    [MenuItem("Assets/Create/Code/Struct", priority = 41)]
+    public static void CreateStructMenuItem()
     {
-        const string templatePath = "Assets/Editor/Templates/Singleton.cs.txt";
+        const string templatePath = "Assets/Editor/Templates/Struct.cs.txt";
 
-        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewSingleton.cs");
+        ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewStruct.cs");
     }
 }
