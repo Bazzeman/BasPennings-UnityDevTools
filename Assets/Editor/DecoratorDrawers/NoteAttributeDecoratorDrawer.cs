@@ -5,9 +5,11 @@ using UnityEngine;
 public class NoteAttributeDecoratorDrawer : DecoratorDrawer
 {
     const float padding = 20;
-    private float height = 0;
+    private float height;
 
-    public override float GetHeight()
+    public override float GetHeight() => height + padding;
+
+    public override void OnGUI(Rect position)
     {
         NoteAttribute noteAttribute = attribute as NoteAttribute;
 
@@ -17,14 +19,7 @@ public class NoteAttributeDecoratorDrawer : DecoratorDrawer
         style.padding = new RectOffset(10, 10, 10, 10);
         style.fontSize = 12;
 
-        height = style.CalcHeight(new GUIContent(noteAttribute.Text), EditorGUIUtility.currentViewWidth);
-
-        return height + padding;
-    }
-
-    public override void OnGUI(Rect position)
-    {
-        NoteAttribute noteAttribute = attribute as NoteAttribute;
+        height = style.CalcHeight(new GUIContent(noteAttribute.Text), position.width - 20);
 
         position.height = height;
         position.y += padding / 2;
