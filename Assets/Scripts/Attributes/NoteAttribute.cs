@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Note attribute
 /// </summary>
 public class NoteAttribute : PropertyAttribute
 {

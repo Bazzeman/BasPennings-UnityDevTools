@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(NoteAttribute))]
-public class NoteAttributePropertyDrawer : DecoratorDrawer
+public class NoteAttributeDecoratorDrawer : DecoratorDrawer
 {
     const float padding = 20;
     private float height = 0;
