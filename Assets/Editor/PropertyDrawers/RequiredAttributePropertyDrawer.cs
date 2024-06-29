@@ -8,14 +8,14 @@ public class RequiredAttributePropertyDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
+        float baseHeight = base.GetPropertyHeight(property, label);
+
         if (IsFieldEmpty(property))
         {
-            float height = EditorGUIUtility.singleLineHeight * 2;
-            height += base.GetPropertyHeight(property, label);
-
-            return height;
+            return baseHeight + EditorGUIUtility.singleLineHeight;
         }
-        else return base.GetPropertyHeight(property, label);
+
+        return baseHeight;
     }
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -26,19 +26,20 @@ public class RequiredAttributePropertyDrawer : PropertyDrawer
             return;
         }
 
+        Rect basePosition = new Rect(position.x, position.y, position.width, base.GetPropertyHeight(property, label));
+
         if (IsFieldEmpty(property))
         {
-            position.height = EditorGUIUtility.singleLineHeight * 2;
-            position.height += base.GetPropertyHeight(property, label);
+            Rect helpBoxPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight * 3);
+            Rect rectPosition = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight * 3);
+            EditorGUI.HelpBox(helpBoxPosition, "Required", UnityEditor.MessageType.Error);
+            EditorGUI.DrawRect(rectPosition, errorColor);
 
-            EditorGUI.HelpBox(position, "Required", UnityEditor.MessageType.Error);
-            EditorGUI.DrawRect(position, errorColor);
-
-            position.height = base.GetPropertyHeight(property, label);
-            position.y = EditorGUIUtility.singleLineHeight * 2;
+            basePosition.y += EditorGUIUtility.singleLineHeight * 2;
+            EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
         }
 
-        EditorGUI.PropertyField(position, property, label);
+        EditorGUI.PropertyField(basePosition, property, label);
     }
 
     private bool IsFieldEmpty(SerializedProperty property)
@@ -52,14 +53,6 @@ public class RequiredAttributePropertyDrawer : PropertyDrawer
         return false;
     }
 
-    private bool IsFieldSupported(SerializedProperty property)
-    {
-        if (property.propertyType == SerializedPropertyType.ObjectReference)
-            return true;
-
-        if (property.propertyType == SerializedPropertyType.String)
-            return true;
-
-        return false;
-    }
+    private bool IsFieldSupported(SerializedProperty property) => 
+        property.propertyType == SerializedPropertyType.ObjectReference || property.propertyType == SerializedPropertyType.String;
 }

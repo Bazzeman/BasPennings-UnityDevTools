@@ -7,22 +7,31 @@ public class NoteAttributeDecoratorDrawer : DecoratorDrawer
     const float padding = 20;
     private float height;
 
-    public override float GetHeight() => height + padding;
+    GUIStyle style = null;
+
+    public override float GetHeight()
+    {
+        NoteAttribute noteAttribute = attribute as NoteAttribute;
+
+        style ??= new(EditorStyles.helpBox)
+        {
+            alignment = TextAnchor.MiddleLeft,
+            wordWrap = true,
+            padding = new RectOffset(10, 10, 10, 10),
+            fontSize = 12
+        };
+
+        height = style.CalcHeight(new GUIContent(noteAttribute.Text), EditorGUIUtility.currentViewWidth - 20);
+
+        return height + padding * 2;
+    }
 
     public override void OnGUI(Rect position)
     {
         NoteAttribute noteAttribute = attribute as NoteAttribute;
 
-        GUIStyle style = EditorStyles.helpBox;
-        style.alignment = TextAnchor.MiddleLeft;
-        style.wordWrap = true;
-        style.padding = new RectOffset(10, 10, 10, 10);
-        style.fontSize = 12;
-
-        height = style.CalcHeight(new GUIContent(noteAttribute.Text), position.width - 20);
-
+        position.y += padding;
         position.height = height;
-        position.y += padding / 2;
         EditorGUI.HelpBox(position, noteAttribute.Text, (UnityEditor.MessageType)noteAttribute.messageType);
     }
 }

@@ -9,6 +9,12 @@ using UnityEngine;
 [CustomEditor(typeof(MonoBehaviour), editorForChildClasses: true)]
 public class BaseEditor : Editor
 {
+
+    /*  TODO
+     *  - Improve this class.
+     *  - Create a system that automatically changes the namespace to the project settings namespace.
+     */
+
     static GUIStyle titleStyle = null;
     ComponentAttribute componentAttribute = null;
 
@@ -25,6 +31,7 @@ public class BaseEditor : Editor
         if (!isUnityNamespace && isRootNamespace) HeaderGUI(componentAttribute);
 
         base.OnInspectorGUI();
+
     }
 
     public static void HeaderGUI(ComponentAttribute componentAttribute)

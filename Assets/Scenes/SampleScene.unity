@@ -245,7 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d3a69d212bfd9449e500b17b0df2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
+  name: 
+  description: 0
 --- !u!4 &1321140404
 Transform:
   m_ObjectHideFlags: 0
@@ -273,6 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22048e75ed39dab4791a36c52f0885ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
