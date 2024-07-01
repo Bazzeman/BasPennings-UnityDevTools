@@ -17,7 +17,6 @@ public class NoteAttributeDecoratorDrawer : DecoratorDrawer
         {
             alignment = TextAnchor.MiddleLeft,
             wordWrap = true,
-            padding = new RectOffset(10, 10, 10, 10),
             fontSize = 12
         };
 
