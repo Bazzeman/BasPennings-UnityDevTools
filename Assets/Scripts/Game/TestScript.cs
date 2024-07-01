@@ -3,11 +3,8 @@ using UnityEngine;
 /// <summary>
 /// TestScript
 /// </summary>
-//[Component("Test Script", "A script for testing features such as attributes, templates or utilities.")]
 public class TestScript : MonoBehaviour
 {
-    [SerializeField] private string name;
-    [Note("This is a very important note, because it is noted! That means that you should read this", messageType = MessageType.Warning)]
-    [Required]
-    [SerializeField] private string description;
+    //[SerializeField] private string name;
+    //[SerializeField] private string description;
 }

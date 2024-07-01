@@ -9,6 +9,7 @@ namespace vortex
     public class TestScriptTwo : MonoBehaviour {
         [Note("This is a very important note, because it is noted! That means that you should read this", messageType = MessageType.Warning)]
         [Required]
+        [Required]
         [SerializeField] private string description;
     }
 }
