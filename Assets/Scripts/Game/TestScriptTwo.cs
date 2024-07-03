@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace vortex
+namespace BasPennings.UnityDevTools
 {
     /// <summary>
     /// TestScriptTwo

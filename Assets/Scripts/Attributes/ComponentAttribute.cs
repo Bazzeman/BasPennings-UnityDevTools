@@ -3,7 +3,7 @@ using System;
 /// <summary>
 /// Component attribute
 /// </summary>
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 public class ComponentAttribute : Attribute
 {
     public string Name { get; private set; } = null;

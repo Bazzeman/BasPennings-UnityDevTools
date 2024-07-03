@@ -3,73 +3,90 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
-/// <summary>
-/// Base editor
-/// </summary>
-[CustomEditor(typeof(MonoBehaviour), editorForChildClasses: true)]
-public class BaseEditor : Editor
+namespace BasPennings.UnityDevTools
 {
-
-    /*  TODO
-     *  - Improve this class.
-     *  - Create a system that automatically changes the namespace to the project settings namespace.
-     */
-
-    static GUIStyle titleStyle = null;
-    ComponentAttribute componentAttribute = null;
-
-    private void OnEnable() => componentAttribute ??= GetComponentAttribute(target);
-
-    public override void OnInspectorGUI()
+    /// <summary>
+    /// Base editor
+    /// </summary>
+    [CustomEditor(typeof(MonoBehaviour), editorForChildClasses: true)]
+    public class BaseEditor : Editor
     {
-        string targetNamespace = target.GetType().Namespace;
-        string rootNamespace = EditorSettings.projectGenerationRootNamespace;
+        private const float k_marginTop = 10;
+        private const float k_marginBottom = 20;
 
-        bool isUnityNamespace = !string.IsNullOrEmpty(targetNamespace) && targetNamespace.StartsWith("Unity");
-        bool isRootNamespace = !string.IsNullOrEmpty(targetNamespace) && targetNamespace.Equals(rootNamespace);
+        private ComponentAttribute componentAttribute;
+        private GUIStyle m_titleStyle;
+        private Texture2D m_logo;
 
-        if (!isUnityNamespace && isRootNamespace) HeaderGUI(componentAttribute);
+        private void OnEnable() => componentAttribute ??= GetComponentAttribute(target);
 
-        base.OnInspectorGUI();
-
-    }
-
-    public static void HeaderGUI(ComponentAttribute componentAttribute)
-    {
-        if (componentAttribute == null) return;
-
-        GUILayout.Space(10);
-
-        titleStyle ??= new(GUI.skin.label)
+        public override void OnInspectorGUI()
         {
-            fontSize = 15,
-            fontStyle = FontStyle.Bold,
-            alignment = TextAnchor.MiddleCenter
-        };
+            string targetNamespace = target.GetType().Namespace;
 
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
+            bool isUnityNamespace = !string.IsNullOrEmpty(targetNamespace) && targetNamespace.StartsWith("Unity");
+            bool isBPNamespace = !string.IsNullOrEmpty(targetNamespace) && targetNamespace.StartsWith("BasPennings");
 
-        GUILayout.Label(componentAttribute.Name, titleStyle);
+            if (!isUnityNamespace) HeaderGUI(componentAttribute);
+            if (isBPNamespace) LogoGUI();
 
-        GUILayout.FlexibleSpace();
-        EditorGUILayout.EndHorizontal();
+            base.OnInspectorGUI();
+        }
 
+        private void HeaderGUI(ComponentAttribute componentAttribute)
+        {
+            GUILayout.Space(k_marginTop);
 
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
+            m_titleStyle ??= new(GUI.skin.label)
+            {
+                fontSize = 15,
+                fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleCenter
+            };
 
-        GUILayout.Box(componentAttribute.Description, GUILayout.Width(Screen.width * .7f));
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
 
-        GUILayout.FlexibleSpace();
-        EditorGUILayout.EndHorizontal();
+            GUILayout.Label(componentAttribute.Name, m_titleStyle);
 
-        GUILayout.Space(20);
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            const int defaultRightMargin = 22;
+            GUILayout.Box(componentAttribute.Description, GUILayout.Width(EditorGUIUtility.currentViewWidth - defaultRightMargin * 2));
+
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+
+            GUILayout.Space(k_marginBottom);
+        }
+
+        private void LogoGUI()
+        {
+            m_logo ??= AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Content/Logos/InspectorLogo.png");
+
+            if (m_logo == null)
+            {
+                Debug.LogError("InspectorLogo.png could not be found in Assets/Content/Logos/.");
+                return;
+            }
+
+            EditorGUILayout.BeginHorizontal();
+
+            GUILayout.Label(m_logo);
+
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private ComponentAttribute GetComponentAttribute(Object obj)
+            => obj.GetType().GetCustomAttribute<ComponentAttribute>()
+                ?? new ComponentAttribute(SplitCamelCase(obj.GetType().Name));
+
+        private string SplitCamelCase(string camelCaseString) => Regex.Replace(camelCaseString, "(\\B[A-Z])", " $1");
     }
 
-    public static ComponentAttribute GetComponentAttribute(Object obj)
-        => obj.GetType().GetCustomAttribute<ComponentAttribute>()
-            ?? new ComponentAttribute(SplitCamelCase(obj.GetType().Name));
-
-    public static string SplitCamelCase(string camelCaseString) => Regex.Replace(camelCaseString, "(\\B[A-Z])", " $1");
 }
