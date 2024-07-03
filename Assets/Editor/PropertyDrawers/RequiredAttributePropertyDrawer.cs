@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -48,3 +49,4 @@ public class RequiredAttributePropertyDrawer : PropertyDrawer
         => property.propertyType == SerializedPropertyType.String && string.IsNullOrEmpty(property.stringValue) 
             || property.propertyType == SerializedPropertyType.ObjectReference && property.objectReferenceValue == null;
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 /// <summary>
@@ -38,3 +39,4 @@ public static class CreateScriptTemplate
         ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewStruct.cs");
     }
 }
+#endif

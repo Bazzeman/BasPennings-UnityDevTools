@@ -1,5 +1,6 @@
-using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 using System.IO;
 using System;
 
@@ -33,3 +34,4 @@ namespace BasPennings.UnityDevTools
         public static string GetDefaultPath() => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Screenshots");
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -56,3 +57,4 @@ public class NoteAttributeDecoratorDrawer : DecoratorDrawer
         return iconName != null ? EditorGUIUtility.IconContent(iconName).image as Texture2D : null;
     }
 }
+#endif

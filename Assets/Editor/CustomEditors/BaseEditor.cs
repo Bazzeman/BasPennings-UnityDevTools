@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEditor;
@@ -90,3 +91,4 @@ namespace BasPennings.UnityDevTools
     }
 
 }
+#endif

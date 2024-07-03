@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -8,10 +9,7 @@ namespace BasPennings.UnityDevTools
     /// </summary>
     public class CaptureScreenshotSettingsProvider : SettingsProvider
     {
-        public CaptureScreenshotSettingsProvider(string path, SettingsScope scope = SettingsScope.User) : base(path, scope)
-        {
-
-        }
+        public CaptureScreenshotSettingsProvider(string path, SettingsScope scope = SettingsScope.User) : base(path, scope) { }
 
         public override void OnGUI(string searchContext)
         {
@@ -42,3 +40,4 @@ namespace BasPennings.UnityDevTools
             => new CaptureScreenshotSettingsProvider(CaptureScreenshotTool.k_menuPath);
     }
 }
+#endif
