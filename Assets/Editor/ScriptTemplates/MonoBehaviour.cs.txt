@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// #NAME#
 /// </summary>
+[Component("#SCRIPTNAME#", "This is a MonoBehaviour script.")]
 public class #SCRIPTNAME# : MonoBehaviour
 {
     [SerializeField] private
