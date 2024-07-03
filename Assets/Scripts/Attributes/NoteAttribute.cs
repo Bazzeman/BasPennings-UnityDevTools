@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Note attribute
 /// </summary>
-[AttributeUsage(AttributeTargets.All)]
+[AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
 public class NoteAttribute : PropertyAttribute
 {
     public string Text = string.Empty;

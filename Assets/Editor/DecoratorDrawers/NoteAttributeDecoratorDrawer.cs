@@ -4,33 +4,55 @@ using UnityEngine;
 [CustomPropertyDrawer(typeof(NoteAttribute))]
 public class NoteAttributeDecoratorDrawer : DecoratorDrawer
 {
-    const float padding = 20;
-    private float height;
+    private const float k_verticalMargin = 18;
+    private const int k_horizontalPadding = 9;
+    private const int k_verticalPadding = 9;
 
-    GUIStyle style = null;
+    private NoteAttribute m_attribute;
+    private GUIStyle m_style;
 
     public override float GetHeight()
     {
-        NoteAttribute noteAttribute = attribute as NoteAttribute;
+        m_attribute ??= attribute as NoteAttribute;
 
-        style ??= new(EditorStyles.helpBox)
+        m_style ??= new GUIStyle(EditorStyles.helpBox)
         {
             alignment = TextAnchor.MiddleLeft,
             wordWrap = true,
+            padding = new(k_horizontalPadding, k_horizontalPadding, k_verticalPadding, k_verticalPadding),
             fontSize = 12
         };
 
-        height = style.CalcHeight(new GUIContent(noteAttribute.Text), EditorGUIUtility.currentViewWidth - 20);
+        const int defaultRightPadding = 22; // (in OnGUI log EditorGUIUtility.currentViewWidth - position.width)
+        float contentHeight = m_style.CalcHeight(new GUIContent(m_attribute.Text), EditorGUIUtility.currentViewWidth - defaultRightPadding);
 
-        return height + padding * 2;
+        return contentHeight + k_verticalMargin * 2;
     }
 
     public override void OnGUI(Rect position)
     {
-        NoteAttribute noteAttribute = attribute as NoteAttribute;
+        Texture2D icon = GetIcon(m_attribute.messageType);
+        GUIContent content = icon != null ? new (m_attribute.Text, icon) : new(m_attribute.Text);
 
-        position.y += padding;
-        position.height = height;
-        EditorGUI.HelpBox(position, noteAttribute.Text, (UnityEditor.MessageType)noteAttribute.messageType);
+        position = new(
+            position.x,
+            position.y + k_verticalMargin,
+            position.width,
+            position.height - k_verticalMargin * 2);
+
+        EditorGUI.LabelField(position, content, m_style);
+    }
+
+    private Texture2D GetIcon(MessageType messageType)
+    {
+        string iconName = messageType switch
+        {
+            MessageType.Error => "console.erroricon",
+            MessageType.Warning => "console.warnicon",
+            MessageType.Info => "console.infoicon",
+            _ => null
+        };
+
+        return iconName != null ? EditorGUIUtility.IconContent(iconName).image as Texture2D : null;
     }
 }
