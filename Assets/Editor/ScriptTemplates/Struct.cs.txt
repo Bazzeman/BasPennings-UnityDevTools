@@ -1,8 +1,0 @@
-#ROOTNAMESPACEBEGIN#/// <summary>
-/// #NAME#
-/// </summary>
-public struct #SCRIPTNAME#
-{
-    #NOTRIM#
-}
-#ROOTNAMESPACEEND#
