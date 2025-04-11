@@ -1,0 +1,15 @@
+{
+	"name": "com.bas-pennings.unity-dev-tools",
+	"version": "1.2.3",
+	"displayName": "Unity Dev Tools",
+	"description": "This is an example package",
+	"unity": "2020.3",
+	"dependencies": {
+	},
+	"author": {
+		"name": "Bas Pennings",
+		"email": "bas.pennings@sintlucasedu.nl",
+		"url": "https://github.com/Bazzeman"
+	},
+}
+
